@@ -28,14 +28,15 @@
   color: #61dafb;
 }
 
-.App th,
-.App td {
+th,
+td {
   border: solid 1px; /* 枠線指定 */
-  padding: 10px; /* 余白指定 */
+  padding: 5px; /* 余白指定 */
 }
 
-.App table {
-  /* セルの線を重ねる */
+table {
+  border-collapse: collapse;
+  width: 900px;
 }
 
 @keyframes App-logo-spin {
