@@ -16,19 +16,19 @@ const TargetDisplay = () => {
         setCheckbox(newCheckBoxes)
       }
 
-      return (
+    return (
         <div>
-        ・表示対象<br/>
-        {
-          checkbox.map(type => {
-            return (
-              <label key={type.key}>
-                <input type="checkbox" value={type.name} onChange={changeDispType} checked={type.dispFlg}/>{type.name}
-              </label>
-            )
-          })
-      }
-      </div>
+            ・表示対象<br/>
+            {
+                checkbox.map(type => {
+                    return (
+                        <label key={type.key}>
+                            <input type="checkbox" value={type.name} onChange={changeDispType} checked={type.dispFlg}/>{type.name}
+                        </label>
+                    )
+                })
+            }
+        </div>
     )
 }
 

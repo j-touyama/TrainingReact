@@ -3,37 +3,35 @@ import {usePullDown } from "../context/UserContext"
 
 const UserInfo = () => {
 
-    const checkbox = usePullDown()
+    const checkboxes = usePullDown()
+    const titles = ['No','社員コード','姓　名','name','入社年月日','経歴','案件概要','編集','削除']
+
     return (
-        <div>
+        <>
         {
-          checkbox.map(type=>{
-            if (type.dispFlg) {
+          checkboxes.map(checkbox=>{
+            if (checkbox.dispFlg) {
               return (
                 <>
-                <h2>{type.name}</h2>
-                <table>
-                <thead>
-                  <tr>
-                    <th>No</th>
-                    <th>社員コード</th>
-                    <th>姓　名</th>
-                    <th>name</th>
-                    <th>入社年月日</th>
-                    <th>経歴</th>
-                    <th>案件概要</th>
-                    <th>編集</th>
-                    <th>削除</th>
-                  </tr>
-                </thead>
-                <UserTBody type={type}/>
-              </table>
-              </>
+                    <h2>{checkbox.name}</h2>
+                    <table>
+                        <thead>
+                        <tr>
+                            {titles.map(title => <th key={title}>{title}</th>)}
+                        </tr>
+                        </thead>
+
+                        <UserTBody type={checkbox}/>
+
+                    </table>
+                </>
               )
+            } else {
+                return ''
             }
           })
         }
-      </div>
+      </>
     )
 }
 export default UserInfo

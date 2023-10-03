@@ -15,29 +15,30 @@ export const UserTBody = ({type}) => {
         deleteUser();
       }
     
-      return (
+    return (
         <tbody>
-        {users?.filter(user => user.staffDepartment === type.value)
-          .map((user, index)  => {
-            const projectType = user.projectType && parse('<span>' + user.projectType + '</span>')
-            return (
-              <tr key={user.id}>
-                <td>{index + 1}</td>
-                <td>{user.staffCode}</td>
-                <td>{user.lastName} {user.firstName}</td>
-                <td>{user.lastNameRomaji} {user.firstNameRomaji}</td>
-                <td>{user.joinedYear}</td>
-                <td>{user.newGladFlg ? "新卒" : "中途"}</td>
-                <td>{projectType}</td>
-                <td>
-                  <button value={user.staffCode} onClick={(e) => console.log(e.target.value)}>編集</button>
-                </td>
-                <td>
-                  <button value={user.staffCode} onClick={deleteUser}>削除</button>
-                </td>
-              </tr>
-            )
-          })}
+            {users?.filter(user => user.staffDepartment === type.value)
+                .map((user, index)  => {
+                    const projectType = user.projectType && parse('<span>' + user.projectType + '</span>')
+                    return (
+                        <tr key={user.id}>
+                            <td>{index + 1}</td>
+                            <td>{user.staffCode}</td>
+                            <td>{user.lastName} {user.firstName}</td>
+                            <td>{user.lastNameRomaji} {user.firstNameRomaji}</td>
+                            <td>{user.joinedYear}</td>
+                            <td>{user.newGladFlg ? "新卒" : "中途"}</td>
+                            <td>{projectType}</td>
+                            <td>
+                            <button value={user.staffCode} onClick={(e) => console.log(e.target.value)}>編集</button>
+                            </td>
+                            <td>
+                            <button value={user.staffCode} onClick={deleteUser}>削除</button>
+                            </td>
+                        </tr>
+                    )
+                })
+            }
         </tbody>
     )
 }
