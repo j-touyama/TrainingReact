@@ -4,7 +4,7 @@ import axios from "axios";
 
 import {usePullDown } from "../context/UserContext"
 
-const EditForm = () => {
+const EditForm = ({show, setShow}) => {
     const initRadioButtons = [
         {
             id:"newCareer",
@@ -43,7 +43,12 @@ const EditForm = () => {
               })
           }
           updateUser();
+          setShow(false)
       }
+    const closeModal = () => {
+        setShow(!show)
+    }
+
     const changeRadio = () => {
         setRadio(radios.map(oldItem => {
             return {...oldItem, selectedFlg:!oldItem.selectedFlg};
@@ -54,7 +59,7 @@ const EditForm = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <table><tbody>
                     <tr>
-                        <td id="">社員コード：</td>
+                        <td id="">社員コード</td>
                         <td>
                             <input type="text" id="staffCode"
                                 {...register('staffCode', {required:'入力が必須の項目です'})} />
@@ -62,7 +67,7 @@ const EditForm = () => {
                         </td>
                     </tr>
                     <tr>
-                        <td id="">姓：</td>
+                        <td id="">姓</td>
                         <td>
                             <input type="text" id="firstName"
                                 {...register('firstName', {required:'入力が必須の項目です'})} />
@@ -70,7 +75,7 @@ const EditForm = () => {
                         </td>
                     </tr>
                     <tr>
-                        <td id="">名：</td>
+                        <td id="">名</td>
                         <td>
                             <input type="text" id="lastName"
                                 {...register('lastName', {required:'入力が必須の項目です'})} />
@@ -78,7 +83,7 @@ const EditForm = () => {
                         </td>
                     </tr>
                     <tr>
-                        <td id="">姓 ローマ字：</td>
+                        <td id="">姓 ローマ字</td>
                         <td>
                             <input type="text" id="firstNameRomaji" 
                                 {...register('firstNameRomaji', {required:'入力が必須の項目です'})} />
@@ -86,7 +91,7 @@ const EditForm = () => {
                         </td>
                     </tr>
                     <tr>
-                        <td id="">名 ローマ字：</td>
+                        <td id="">名 ローマ字</td>
                         <td>
                             <input type="text" id="lastNameRomaji" 
                                 {...register('lastNameRomaji', {required:'入力が必須の項目です'})} />
@@ -94,7 +99,7 @@ const EditForm = () => {
                         </td>
                     </tr>
                     <tr>
-                        <td id="">所属：</td>
+                        <td id="">所属</td>
                         <td>
                             <select {...register('staffDepartment', {required:'選択が必須の項目です'})}>
                                 {
@@ -109,7 +114,7 @@ const EditForm = () => {
                         </td>
                     </tr>
                     <tr>
-                        <td id="">入社年月日：</td>
+                        <td id="">入社年月日</td>
                         <td>
                             <input type="text" id="joinedYear"
                                 {...register('joinedYear', {required:'入力が必須の項目です'})} />
@@ -117,7 +122,7 @@ const EditForm = () => {
                         </td>
                     </tr>
                     <tr>
-                        <td id="">経歴：</td>
+                        <td id="">経歴</td>
                         <td>
                         {
                             radios.map((radio) => {
@@ -139,13 +144,13 @@ const EditForm = () => {
                         </td>
                     </tr>
                     <tr>
-                        <td id="">案件概要／業務内容：</td>
+                        <td id="">案件概要／業務内容</td>
                         <td>
                             <textarea id="projectType" {...register('projectType')} />
                         </td>
                     </tr>
                 </tbody></table>
-                <button type="submit">更新</button>
+                <button type="submit">更新</button><button onClick={closeModal}>Close</button>
             </form>
         </>
     )
