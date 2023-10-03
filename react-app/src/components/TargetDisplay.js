@@ -17,7 +17,7 @@ const TargetDisplay = () => {
       }
 
     return (
-        <div>
+        <>
             ・表示対象<br/>
             {
                 checkbox.map(type => {
@@ -28,7 +28,7 @@ const TargetDisplay = () => {
                     )
                 })
             }
-        </div>
+        </>
     )
 }
 
