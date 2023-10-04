@@ -124,7 +124,7 @@ const initDispType = [
     dispFlg:true
   }
 ]
-const initRadioButtons = [
+export const initRadioButtons = [
   {
       id:"newCareer",
       label:"新卒",

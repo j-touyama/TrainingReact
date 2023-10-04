@@ -1,5 +1,5 @@
-import { useOrverRayShowDispatch, useCallApiTypeDispatchContext } from "../../context/UserContext"
-import "../../App.css"
+import { useOrverRayShowDispatch, useCallApiTypeDispatchContext } from "../context/UserContext"
+import "../App.css"
 
 const InsertBtn = () => {
 

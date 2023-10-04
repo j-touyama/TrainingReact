@@ -1,5 +1,5 @@
 import { useOrverRayShow, UserProvider } from "./context/UserContext"
-import InsertBtn from "./components/table/InsertBtn"
+import InsertBtn from "./components/InsertBtn"
 import TargetCheckBox from "./components/TargetCheckBox"
 import UserForm from "./components/table/UserForm"
 import Modal from "./components/modal/Modal"

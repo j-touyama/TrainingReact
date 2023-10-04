@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import axios from "axios";
 
 import { usePullDown, useRadioInfo, useRadioInfoDispatch, useOrverRayShow, useOrverRayShowDispatch, useTargetUserContext, useTargetUserDispatchContext, useCallApiTypeContext } from "../../context/UserContext"
-import {initTargetUser} from "../../context/UserContext"
+import {initTargetUser, initRadioButtons} from "../../context/UserContext"
 
 const ModalEditForm = () => {
 
@@ -15,6 +15,8 @@ const ModalEditForm = () => {
     const targetUser = useTargetUserContext()
     const setTargetUser = useTargetUserDispatchContext()
     const callApiType = useCallApiTypeContext()
+
+    console.log(targetUser)
 
     const { register, handleSubmit, formState:{errors} } = useForm()
 
@@ -39,6 +41,7 @@ const ModalEditForm = () => {
                 insertUser();
                 setShow(false)
                 setTargetUser(initTargetUser)
+                setRadio(initRadioButtons)
                 break
             case "update":
                 const updateUser = async () => {
@@ -60,6 +63,7 @@ const ModalEditForm = () => {
                 updateUser();
                 setShow(false)
                 setTargetUser(initTargetUser)
+                setRadio(initRadioButtons)
                 break
             default:
                 setShow(false)

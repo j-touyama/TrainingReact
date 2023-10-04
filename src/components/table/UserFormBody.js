@@ -3,7 +3,7 @@ import axios from "axios";
 
 import {useOrverRayShowDispatch, useUsers, useTargetUserDispatchContext, useCallApiTypeDispatchContext } from "../../context/UserContext"
 
-export const FormBody = ({type}) => {
+export const UserFormBody = ({type}) => {
 
     const users = useUsers()
     const setShow = useOrverRayShowDispatch()

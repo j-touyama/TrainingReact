@@ -1,5 +1,5 @@
 import React from "react"
-import {FormBody} from "./FormBody"
+import {UserFormBody} from "./UserFormBody"
 import {usePullDown } from "../../context/UserContext"
 
 const UserForm = () => {
@@ -22,7 +22,7 @@ const UserForm = () => {
                             </tr>
                         </thead>
 
-                        <FormBody type={checkbox}/>
+                        <UserFormBody type={checkbox}/>
 
                     </table>
                 </React.Fragment>
