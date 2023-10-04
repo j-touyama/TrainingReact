@@ -2,10 +2,8 @@ import parse from 'html-react-parser';
 import axios from "axios";
 
 import {useOrverRayShowDispatch, useUsers, useTargetUserDispatchContext, useCallApiTypeDispatchContext } from "../../context/UserContext"
-import UpdateUser from "./UpdateUser"
-import DeleteUser from "./DeleteUser"
 
-export const UserBody = ({type}) => {
+export const FormBody = ({type}) => {
 
     const users = useUsers()
     const setShow = useOrverRayShowDispatch()
@@ -49,8 +47,8 @@ export const UserBody = ({type}) => {
                             <td>{user.joinedYear}</td>
                             <td>{user.newGladFlg ? "新卒" : "中途"}</td>
                             <td className="textArea">{projectType}</td>
-                            <td><UpdateUser staffCode={user.staffCode} getTargetUser={getTargetUser} /></td>
-                            <td><DeleteUser staffCode={user.staffCode} deleteUser={deleteUser} /></td>
+                            <td><button value={user.staffCode} onClick={getTargetUser}>更新</button></td>
+                            <td><button value={user.staffCode} onClick={deleteUser}>削除</button></td>
                         </tr>
                     )
                 })

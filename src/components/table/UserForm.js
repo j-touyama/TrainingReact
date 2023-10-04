@@ -1,8 +1,8 @@
 import React from "react"
-import {UserBody} from "./UserBody"
+import {FormBody} from "./FormBody"
 import {usePullDown } from "../../context/UserContext"
 
-const UserTable = () => {
+const UserForm = () => {
 
     const checkboxes = usePullDown()
     const titles = ['No','社員コード','氏名','name','入社年月日','経歴','案件概要','更新','削除']
@@ -22,7 +22,7 @@ const UserTable = () => {
                             </tr>
                         </thead>
 
-                        <UserBody type={checkbox}/>
+                        <FormBody type={checkbox}/>
 
                     </table>
                 </React.Fragment>
@@ -35,4 +35,4 @@ const UserTable = () => {
       </>
     )
 }
-export default UserTable
+export default UserForm
