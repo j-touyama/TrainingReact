@@ -1,11 +1,11 @@
 import React from "react"
-import {UserTBody} from "./UserTBody"
-import {usePullDown } from "../context/UserContext"
+import {UserBody} from "./UserBody"
+import {usePullDown } from "../../context/UserContext"
 
-const UserInfo = () => {
+const UserTable = () => {
 
     const checkboxes = usePullDown()
-    const titles = ['No','社員コード','姓　名','name','入社年月日','経歴','案件概要','更新','削除']
+    const titles = ['No','社員コード','氏名','name','入社年月日','経歴','案件概要','更新','削除']
 
     return (
         <>
@@ -15,14 +15,14 @@ const UserInfo = () => {
               return (
                 <React.Fragment key={checkbox.key}>
                     <h2>{checkbox.name}</h2>
-                    <table>
+                    <table className="userTable">
                         <thead>
                             <tr>
                                 {titles.map(title => <th key={title}>{title}</th>)}
                             </tr>
                         </thead>
 
-                        <UserTBody type={checkbox}/>
+                        <UserBody type={checkbox}/>
 
                     </table>
                 </React.Fragment>
@@ -35,4 +35,4 @@ const UserInfo = () => {
       </>
     )
 }
-export default UserInfo
+export default UserTable

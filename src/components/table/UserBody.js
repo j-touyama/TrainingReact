@@ -1,11 +1,11 @@
 import parse from 'html-react-parser';
 import axios from "axios";
 
-import {useOrverRayShowDispatch, useUsers, useTargetUserDispatchContext, useCallApiTypeDispatchContext } from "../context/UserContext"
+import {useOrverRayShowDispatch, useUsers, useTargetUserDispatchContext, useCallApiTypeDispatchContext } from "../../context/UserContext"
 import UpdateUser from "./UpdateUser"
 import DeleteUser from "./DeleteUser"
 
-export const UserTBody = ({type}) => {
+export const UserBody = ({type}) => {
 
     const users = useUsers()
     const setShow = useOrverRayShowDispatch()
@@ -14,7 +14,6 @@ export const UserTBody = ({type}) => {
 
     const getTargetUser = (e) => {
         const targetCode = e.target.value
-        console.log(users)
         users.forEach(user => {
             if (user.staffCode === targetCode) {
                 const newUser = {...user}
@@ -49,7 +48,7 @@ export const UserTBody = ({type}) => {
                             <td>{user.lastNameRomaji} {user.firstNameRomaji}</td>
                             <td>{user.joinedYear}</td>
                             <td>{user.newGladFlg ? "新卒" : "中途"}</td>
-                            <td>{projectType}</td>
+                            <td className="textArea">{projectType}</td>
                             <td><UpdateUser staffCode={user.staffCode} getTargetUser={getTargetUser} /></td>
                             <td><DeleteUser staffCode={user.staffCode} deleteUser={deleteUser} /></td>
                         </tr>

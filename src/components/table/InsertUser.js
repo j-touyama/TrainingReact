@@ -1,4 +1,5 @@
-import { useOrverRayShowDispatch, useCallApiTypeDispatchContext } from "../context/UserContext"
+import { useOrverRayShowDispatch, useCallApiTypeDispatchContext } from "../../context/UserContext"
+import "../../App.css"
 
 const InsertUser = () => {
 
@@ -8,7 +9,7 @@ const InsertUser = () => {
       setShow(true)
       setCallApiType("insert")
     }
-    return <p><button onClick={insertUser}>新規登録</button></p>
+    return <p className="insertBtn"><button onClick={insertUser}>新規登録</button></p>
 }
 
 export default InsertUser

@@ -2,10 +2,10 @@ import React from "react"
 import { useForm } from 'react-hook-form';
 import axios from "axios";
 
-import { usePullDown, useRadioInfo, useRadioInfoDispatch, useOrverRayShow, useOrverRayShowDispatch, useTargetUserContext, useTargetUserDispatchContext, useCallApiTypeContext } from "../context/UserContext"
-import {initTargetUser} from "../context/UserContext"
+import { usePullDown, useRadioInfo, useRadioInfoDispatch, useOrverRayShow, useOrverRayShowDispatch, useTargetUserContext, useTargetUserDispatchContext, useCallApiTypeContext } from "../../context/UserContext"
+import {initTargetUser} from "../../context/UserContext"
 
-const EditForm = () => {
+const ModalEditForm = () => {
 
     const checkboxes = usePullDown()
     const radios = useRadioInfo()
@@ -38,6 +38,7 @@ const EditForm = () => {
                 }
                 insertUser();
                 setShow(false)
+                setTargetUser(initTargetUser)
                 break
             case "update":
                 const updateUser = async () => {
@@ -58,6 +59,7 @@ const EditForm = () => {
                 }
                 updateUser();
                 setShow(false)
+                setTargetUser(initTargetUser)
                 break
             default:
                 setShow(false)
@@ -82,45 +84,45 @@ const EditForm = () => {
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <table><tbody>
+                <table className="editTable"><tbody>
                     <tr>
                         <td id="">社員コード</td>
                         <td>
                             <input type="text" id="staffCode" defaultValue={targetUser.staffCode}
                                 {...register('staffCode', {required:'入力が必須の項目です'})} />
-                            {errors.staffCode?.message && <div>{errors.staffCode.message}</div>}
+                            {errors.staffCode?.message && <div className="error">{errors.staffCode.message}</div>}
                         </td>
                     </tr>
                     <tr>
                         <td id="">姓</td>
                         <td>
-                            <input type="text" id="firstName" defaultValue={targetUser.firstName}
-                                {...register('firstName', {required:'入力が必須の項目です'})} />
-                            {errors.firstName?.message && <div>{errors.firstName.message}</div>}
+                            <input type="text" id="lastName" defaultValue={targetUser.lastName}
+                                {...register('lastName', {required:'入力が必須の項目です'})} />
+                            {errors.lastName?.message && <div className="error">{errors.lastName.message}</div>}
                         </td>
                     </tr>
                     <tr>
                         <td id="">名</td>
                         <td>
-                            <input type="text" id="lastName" defaultValue={targetUser.lastName}
-                                {...register('lastName', {required:'入力が必須の項目です'})} />
-                            {errors.lastName?.message && <div>{errors.lastName.message}</div>}
+                            <input type="text" id="firstName" defaultValue={targetUser.firstName}
+                                {...register('firstName', {required:'入力が必須の項目です'})} />
+                            {errors.firstName?.message && <div className="error">{errors.firstName.message}</div>}
                         </td>
                     </tr>
                     <tr>
                         <td id="">姓 ローマ字</td>
                         <td>
-                            <input type="text" id="firstNameRomaji" defaultValue={targetUser.firstNameRomaji}
-                                {...register('firstNameRomaji', {required:'入力が必須の項目です'})} />
-                            {errors.firstNameRomaji?.message && <div>{errors.firstNameRomaji.message}</div>}
+                            <input type="text" id="lastNameRomaji" defaultValue={targetUser.lastNameRomaji}
+                                {...register('lastNameRomaji', {required:'入力が必須の項目です'})} />
+                            {errors.lastNameRomaji?.message && <div className="error">{errors.lastNameRomaji.message}</div>}
                         </td>
                     </tr>
                     <tr>
                         <td id="">名 ローマ字</td>
                         <td>
-                            <input type="text" id="lastNameRomaji" defaultValue={targetUser.lastNameRomaji}
-                                {...register('lastNameRomaji', {required:'入力が必須の項目です'})} />
-                            {errors.lastNameRomaji?.message && <div>{errors.lastNameRomaji.message}</div>}
+                            <input type="text" id="firstNameRomaji" defaultValue={targetUser.firstNameRomaji}
+                                {...register('firstNameRomaji', {required:'入力が必須の項目です'})} />
+                            {errors.firstNameRomaji?.message && <div className="error">{errors.firstNameRomaji.message}</div>}
                         </td>
                     </tr>
                     <tr>
@@ -135,7 +137,7 @@ const EditForm = () => {
                                     })
                                 }
                             </select>
-                            {errors.staffDepartment?.message && <div>{errors.staffDepartment.message}</div>}
+                            {errors.staffDepartment?.message && <div className="error">{errors.staffDepartment.message}</div>}
                         </td>
                     </tr>
                     <tr>
@@ -143,7 +145,7 @@ const EditForm = () => {
                         <td>
                             <input type="text" id="joinedYear" defaultValue={targetUser.joinedYear}
                                 {...register('joinedYear', {required:'入力が必須の項目です'})} />
-                            {errors.joinedYear?.message && <div>{errors.joinedYear.message}</div>}
+                            {errors.joinedYear?.message && <div className="error">{errors.joinedYear.message}</div>}
                         </td>
                     </tr>
                     <tr>
@@ -165,7 +167,7 @@ const EditForm = () => {
                                 );
                             })
                         }
-                        {errors.newGladFlg?.message && <div>{errors.newGladFlg.message}</div>}
+                        {errors.newGladFlg?.message && <div className="error">{errors.newGladFlg.message}</div>}
                         </td>
                     </tr>
                     <tr>
@@ -184,4 +186,4 @@ const EditForm = () => {
     )
 }
 
-export default EditForm
+export default ModalEditForm

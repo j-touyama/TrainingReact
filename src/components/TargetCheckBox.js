@@ -1,6 +1,6 @@
 import {usePullDown, usePullDownDispatch } from "../context/UserContext"
 
-const TargetDisplay = () => {
+const TargetCheckBox = () => {
 
     const checkbox = usePullDown()
     const setCheckbox = usePullDownDispatch()
@@ -18,7 +18,7 @@ const TargetDisplay = () => {
 
     return (
         <>
-            ・表示対象<br/>
+            <p>【表示対象】を下記から選択</p>
             {
                 checkbox.map(type => {
                     return (
@@ -32,4 +32,4 @@ const TargetDisplay = () => {
     )
 }
 
-export default TargetDisplay
+export default TargetCheckBox

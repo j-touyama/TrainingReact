@@ -1,6 +1,6 @@
-import "../App.css"
-import EditForm from "./EditForm"
-import { useOrverRayShow } from "../context/UserContext"
+import "../../App.css"
+import EditForm from "./ModalEditForm"
+import { useOrverRayShow } from "../../context/UserContext"
 
 const Modal = () => {
     const show = useOrverRayShow()
