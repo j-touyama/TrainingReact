@@ -1,12 +1,14 @@
 import "../App.css"
 import EditForm from "./EditForm"
+import { useOrverRayShow } from "../context/UserContext"
 
-const Modal = ({show, setShow}) => {
+const Modal = () => {
+    const show = useOrverRayShow()
     if (show) {
         return (
             <div id="overlay">
                 <div id="content">
-                    <EditForm show={show} setShow={setShow}/>
+                    <EditForm />
                 </div>
             </div>
         );

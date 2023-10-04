@@ -1,7 +1,6 @@
 .App {
   text-align: center;
 }
-
 #overlay {
   /*　画面全体を覆う設定　*/
   position: fixed;
@@ -23,6 +22,7 @@
   padding: 1em;
   background: #fff;
 }
+
 th,
 td {
   border: solid 1px; /* 枠線指定 */

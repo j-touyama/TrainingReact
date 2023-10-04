@@ -1,59 +1,84 @@
+import React from "react"
 import { useForm } from 'react-hook-form';
-import {useState} from "react"
 import axios from "axios";
 
-import {usePullDown } from "../context/UserContext"
+import { usePullDown, useRadioInfo, useRadioInfoDispatch, useOrverRayShow, useOrverRayShowDispatch, useTargetUserContext, useTargetUserDispatchContext, useCallApiTypeContext } from "../context/UserContext"
+import {initTargetUser} from "../context/UserContext"
 
-const EditForm = ({show, setShow}) => {
-    const initRadioButtons = [
-        {
-            id:"newCareer",
-            label:"新卒",
-            value:1,
-            selectedFlg:true,
-        },
-        {
-            id:"midCareer",
-            label:"中途",
-            value:0,
-            selectedFlg:false,
-        }
-    ]
+const EditForm = () => {
+
     const checkboxes = usePullDown()
-    const [radios, setRadio] = useState(initRadioButtons)
+    const radios = useRadioInfo()
+    const setRadio = useRadioInfoDispatch()
+    const show = useOrverRayShow()
+    const setShow = useOrverRayShowDispatch()
+    const targetUser = useTargetUserContext()
+    const setTargetUser = useTargetUserDispatchContext()
+    const callApiType = useCallApiTypeContext()
 
     const { register, handleSubmit, formState:{errors} } = useForm()
 
     const onSubmit = (data) => {
-        const updateUser = async () => {
-            await axios.post('http://localhost:8080/employee/insert',{
-                staffCode: data.staffCode,
-                lastName: data.lastName,
-                firstName: data.firstName,
-                lastNameRomaji: data.lastNameRomaji,
-                firstNameRomaji: data.firstNameRomaji,
-                staffDepartment: data.staffDepartment,
-                projectType: data.projectType,
-                joinedYear: data.joinedYear,
-                newGladFlg: data.newGladFlg === '1' ? true : false
-            }
-                
-            ).then(function (response) {
-                console.log(response);
-              })
-          }
-          updateUser();
-          setShow(false)
-      }
-    const closeModal = () => {
-        setShow(!show)
+        switch(callApiType){
+            case "insert":
+                const insertUser = async () => {
+                    await axios.post('http://localhost:8080/employee/insert',{
+                        staffCode: data.staffCode,
+                        lastName: data.lastName,
+                        firstName: data.firstName,
+                        lastNameRomaji: data.lastNameRomaji,
+                        firstNameRomaji: data.firstNameRomaji,
+                        staffDepartment: data.staffDepartment,
+                        projectType: data.projectType,
+                        joinedYear: data.joinedYear,
+                        newGladFlg: data.newGladFlg === '1' ? true : false
+                    }).then(function (response) {
+                        alert("ユーザーが登録されました。");
+                    }).catch(error => alert("登録処理に失敗しました。"))
+                }
+                insertUser();
+                setShow(false)
+                break
+            case "update":
+                const updateUser = async () => {
+                    await axios.post('http://localhost:8080/employee/update',{
+                        id: data.id,
+                        staffCode: data.staffCode,
+                        lastName: data.lastName,
+                        firstName: data.firstName,
+                        lastNameRomaji: data.lastNameRomaji,
+                        firstNameRomaji: data.firstNameRomaji,
+                        staffDepartment: data.staffDepartment,
+                        projectType: data.projectType,
+                        joinedYear: data.joinedYear,
+                        newGladFlg: data.newGladFlg === '1' ? true : false
+                    }).then(function (response) {
+                        alert("ユーザー情報が更新されました。");
+                    }).catch(error => alert("更新処理に失敗しました。"))
+                }
+                updateUser();
+                setShow(false)
+                break
+            default:
+                setShow(false)
+                break
+        }
+
+
+
     }
 
     const changeRadio = () => {
         setRadio(radios.map(oldItem => {
             return {...oldItem, selectedFlg:!oldItem.selectedFlg};
-      }))
+        }))
     }
+
+    const closeModel = () => {
+        setShow(!show)
+        setTargetUser(initTargetUser)
+    }
+
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -61,7 +86,7 @@ const EditForm = ({show, setShow}) => {
                     <tr>
                         <td id="">社員コード</td>
                         <td>
-                            <input type="text" id="staffCode"
+                            <input type="text" id="staffCode" defaultValue={targetUser.staffCode}
                                 {...register('staffCode', {required:'入力が必須の項目です'})} />
                             {errors.staffCode?.message && <div>{errors.staffCode.message}</div>}
                         </td>
@@ -69,7 +94,7 @@ const EditForm = ({show, setShow}) => {
                     <tr>
                         <td id="">姓</td>
                         <td>
-                            <input type="text" id="firstName"
+                            <input type="text" id="firstName" defaultValue={targetUser.firstName}
                                 {...register('firstName', {required:'入力が必須の項目です'})} />
                             {errors.firstName?.message && <div>{errors.firstName.message}</div>}
                         </td>
@@ -77,7 +102,7 @@ const EditForm = ({show, setShow}) => {
                     <tr>
                         <td id="">名</td>
                         <td>
-                            <input type="text" id="lastName"
+                            <input type="text" id="lastName" defaultValue={targetUser.lastName}
                                 {...register('lastName', {required:'入力が必須の項目です'})} />
                             {errors.lastName?.message && <div>{errors.lastName.message}</div>}
                         </td>
@@ -85,7 +110,7 @@ const EditForm = ({show, setShow}) => {
                     <tr>
                         <td id="">姓 ローマ字</td>
                         <td>
-                            <input type="text" id="firstNameRomaji" 
+                            <input type="text" id="firstNameRomaji" defaultValue={targetUser.firstNameRomaji}
                                 {...register('firstNameRomaji', {required:'入力が必須の項目です'})} />
                             {errors.firstNameRomaji?.message && <div>{errors.firstNameRomaji.message}</div>}
                         </td>
@@ -93,7 +118,7 @@ const EditForm = ({show, setShow}) => {
                     <tr>
                         <td id="">名 ローマ字</td>
                         <td>
-                            <input type="text" id="lastNameRomaji" 
+                            <input type="text" id="lastNameRomaji" defaultValue={targetUser.lastNameRomaji}
                                 {...register('lastNameRomaji', {required:'入力が必須の項目です'})} />
                             {errors.lastNameRomaji?.message && <div>{errors.lastNameRomaji.message}</div>}
                         </td>
@@ -101,7 +126,7 @@ const EditForm = ({show, setShow}) => {
                     <tr>
                         <td id="">所属</td>
                         <td>
-                            <select {...register('staffDepartment', {required:'選択が必須の項目です'})}>
+                            <select {...register('staffDepartment', {required:'選択が必須の項目です'})} defaultValue={targetUser.staffDepartment}>
                                 {
                                     checkboxes.map(checkbox => {
                                         return (
@@ -116,7 +141,7 @@ const EditForm = ({show, setShow}) => {
                     <tr>
                         <td id="">入社年月日</td>
                         <td>
-                            <input type="text" id="joinedYear"
+                            <input type="text" id="joinedYear" defaultValue={targetUser.joinedYear}
                                 {...register('joinedYear', {required:'入力が必須の項目です'})} />
                             {errors.joinedYear?.message && <div>{errors.joinedYear.message}</div>}
                         </td>
@@ -133,7 +158,7 @@ const EditForm = ({show, setShow}) => {
                                         {...(register("newGladFlg"))}
                                         name="newGladFlg"
                                         onChange={changeRadio}
-                                        checked={selectedFlg}
+                                        checked={targetUser.newGladFlg===selectedFlg}
                                         />
                                         {label}
                                     </label>
@@ -146,11 +171,14 @@ const EditForm = ({show, setShow}) => {
                     <tr>
                         <td id="">案件概要／業務内容</td>
                         <td>
-                            <textarea id="projectType" {...register('projectType')} />
+                            <textarea id="projectType" {...register('projectType')}
+                             defaultValue={targetUser.projectType === null ? '' : String(targetUser.projectType).replaceAll('<br />', '\n')} />
                         </td>
                     </tr>
                 </tbody></table>
-                <button type="submit">更新</button><button onClick={closeModal}>Close</button>
+                <input type="hidden" value={targetUser.id} {...register('id')}/>
+                <button type="submit">更新</button>
+                <button type="button" onClick={closeModel}>Close</button>
             </form>
         </>
     )

@@ -1,34 +1,41 @@
 import parse from 'html-react-parser';
 import axios from "axios";
-import {useState} from "react"
 
-import {useUsers } from "../context/UserContext"
+import {useOrverRayShowDispatch, useUsers, useTargetUserDispatchContext, useCallApiTypeDispatchContext } from "../context/UserContext"
+import UpdateUser from "./UpdateUser"
+import DeleteUser from "./DeleteUser"
 
 export const UserTBody = ({type}) => {
 
     const users = useUsers()
-
-    const [target, setTarget] = useState()
-
-    const deleteUser = (e) => {
-        const staffCode = e.target.value
-        const deleteUser = async () => {
-          await axios.get('http://localhost:8080/employee/delete?staffCode=' + staffCode)
-        }
-        if (window.confirm("該当ユーザーを削除します。よろしいですか。")) {
-            deleteUser();
-        }
-    }
+    const setShow = useOrverRayShowDispatch()
+    const setTarget = useTargetUserDispatchContext()
+    const setCallApiType = useCallApiTypeDispatchContext()
 
     const getTargetUser = (e) => {
         const targetCode = e.target.value
+        console.log(users)
         users.forEach(user => {
             if (user.staffCode === targetCode) {
                 const newUser = {...user}
                 setTarget(newUser)
             }
         });
+        setShow(true)
+        setCallApiType("update")
     }
+
+    const deleteUser = (e) => {
+        const staffCode = e.target.value
+        const deleteUser = async () => {
+          await axios.get('http://localhost:8080/employee/delete?staffCode=' + staffCode)
+          .catch(error => alert("ユーザー情報の削除に失敗しました。"))
+        }
+        if (window.confirm("該当ユーザーを削除します。よろしいですか。")) {
+            deleteUser();
+        }
+    }
+
     return (
         <tbody>
             {users?.filter(user => user.staffDepartment === type.value)
@@ -43,8 +50,8 @@ export const UserTBody = ({type}) => {
                             <td>{user.joinedYear}</td>
                             <td>{user.newGladFlg ? "新卒" : "中途"}</td>
                             <td>{projectType}</td>
-                            <td><button value={user.staffCode} onClick={getTargetUser}>更新</button></td>
-                            <td><button value={user.staffCode} onClick={deleteUser}>削除</button></td>
+                            <td><UpdateUser staffCode={user.staffCode} getTargetUser={getTargetUser} /></td>
+                            <td><DeleteUser staffCode={user.staffCode} deleteUser={deleteUser} /></td>
                         </tr>
                     )
                 })
