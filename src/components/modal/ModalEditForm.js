@@ -179,8 +179,10 @@ const ModalEditForm = () => {
                     </tr>
                 </tbody></table>
                 <input type="hidden" value={targetUser.id} {...register('id')}/>
-                <button type="submit">更新</button>
-                <button type="button" onClick={closeModel}>Close</button>
+                <div>
+                    <button type="submit" className="btn">更新</button>
+                    <button type="button" onClick={closeModel} className="btn">閉じる</button>
+                </div>
             </form>
         </>
     )

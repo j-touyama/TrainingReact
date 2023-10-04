@@ -42,3 +42,11 @@ td {
 .error {
   color: red;
 }
+
+.btn {
+  width: 65px;
+  padding: 2px;
+  margin: 5px;
+  height: 35px;
+  cursor: pointer;
+}
